@@ -3,58 +3,62 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-    name: {{ template "eshoponweb.fullname" . }}
-    labels:
-        ufo: {{ $cfgname }}
+  name: {{ template "eshoponweb.fullname" . }}
+  labels:
+    ufo: {{ $cfgname}}
+    app: {{ template "eshoponweb.name" . }}
+    chart: {{ template "eshoponweb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "eshoponweb.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
         app: {{ template "eshoponweb.name" . }}
-        chart: {{ template "eshoponweb.chart" . }}
         release: {{ .Release.Name }}
-        heritage: {{ .Release.Service }}
+      {{ if .Values.inf.mesh.enabled -}}
+      annotations:
+        linkerd.io/inject: enabled
+      {{- end }}             
     spec:
-        replicas: {{ .Values.replicaCount }}
-        selector:
-            matchLabels:
-                app: {{ template "eshoponweb.name" . }}
-                release: {{ .Release.Name }}
-        template:
-            metadata:
-                labels:
-                    app: {{ template "eshoponweb.name" . }}
-                    release: {{ .Release.Name }}
-                spec:
-                    {{- if .Values.inf.registry -}}
-                    imagePullSecrets:
-                    - name: {{ .Values.inf.registry.secretName }}
-                    {{- end }}
-                    containers:
-                        - name: {{ .Chart.Name }}
-                          image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
-                          imagePullPolicy: {{ .Values.image.pullPolicy }}
-                          env:
-                            - name: PATH_BASE
-                              value: {{ include "pathBase" . }}
-                            - name: k8sname
-                              value: {{ .Values.clusterName }}
-                          {{- if .Values.env.Values -}}
-                          {{- range .Values.env.Values }}
-                            - name: {{ .name }}
-                              value: {{ .value | quote }}
-                          {{- end -}}
-                          {{- end -}}
-                          {{- if .Values.env.configmap -}}
-                          {{- range .Values.env.configmap }}
-                            - name: {{ .name }}
-                              valueFrom:
-                                configMapKeyRef:
-                                    name: {{ $cfgname }}
-                                    key: {{ .key }}
-                          {{- end -}}
-                          {{- end }}
-                          ports:
-                            - name: http
-                            containerPort: 80
-                            protocol: tcp
-                          resources:
+      {{ if .Values.inf.registry -}}
+      imagePullSecrets:
+      - name: {{ .Values.inf.registry.secretName }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PATH_BASE
+              value: {{ include "pathBase" . }}
+            - name: k8sname
+              value: {{ .Values.clusterName }}
+          {{- if .Values.env.values -}}
+          {{- range .Values.env.values }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end -}}
+          {{- end -}}
+          {{- if .Values.env.configmap -}}
+          {{- range .Values.env.configmap }}
+            - name: {{ .name }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $cfgname }}
+                  key: {{ .key }}
+          {{- end -}}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
