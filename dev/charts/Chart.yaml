@@ -1,5 +1,0 @@
-apiVersion: v1
-appVersion: "1.0"
-descritption: A helm chart for k8s
-name: eshoponweb
-version: 0.1.0
