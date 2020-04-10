@@ -20,15 +20,11 @@ spec:
     metadata:
       labels:
         app: {{ template "eshoponweb.name" . }}
-        release: {{ .Release.Name }}
-      {{ if .Values.inf.mesh.enabled -}}
-      annotations:
-        linkerd.io/inject: enabled
-      {{- end }}             
+        release: {{ .Release.Name }}    
     spec:
-      {{ if .Values.inf.registry -}}
+      {{ if .Values.registry -}}
       imagePullSecrets:
-      - name: {{ .Values.inf.registry.secretName }}
+      - name: {{ .Values.registry.secretName }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}

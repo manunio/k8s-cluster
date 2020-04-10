@@ -11,10 +11,19 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
   tls: []
 
+registry:                # Uncomment "registry" to specify registry secret
+  secretName:            # secretName is the name of the secret inside k8s   
+
+svc:
+  mvc:
+
+k8s:                      # inf.k8s defines Kubernetes cluster global config
+  dns:  ""                # k8s external  DNS. This value or ip value MUST BE PROVIDED
+  local: false  
 resources: {}
 
 
