@@ -19,7 +19,7 @@ ingress:
       "nginx.ingress.kubernetes.io/add-base-url" : "true"
     }
   hosts: 
-    - dev.eshoponweb.io
+    - 
   tls: []
 
 registry:                # Uncomment "registry" to specify registry secret
