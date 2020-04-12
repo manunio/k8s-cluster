@@ -11,8 +11,10 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
+  hosts: 
+    - dev.eshoponweb.io
   tls: []
 
 registry:                # Uncomment "registry" to specify registry secret
