@@ -12,7 +12,8 @@ service:
 
 ingress:
   enabled: true
-  annotations: {}
+  annotations: 
+    {"kubernetes.io/ingress.class": "nginx"}
   hosts: 
     - dev.eshoponweb.io
   tls: []
