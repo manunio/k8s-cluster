@@ -3,7 +3,7 @@ clusterName: eshoponweb-k8s
 pathBase: /webmvc
 image:
   repository: max1832/eshoponweb
-  tag: 7c84e1c252df0c81b295bd32b0121acf26482f13
+  tag: 3dc1efa00d95dc65d0a5c127dbbacbd5ee8aa21b
   pullPolicy: IfNotPresent
 
 service:
