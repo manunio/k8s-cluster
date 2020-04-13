@@ -20,7 +20,7 @@ spec:
     - host: {{ . }}
       http:
         paths:
-          - path: {{ $ingressPath }}
+          - path: /
             backend:
               serviceName: {{ $serviceName }}
               servicePort: 80
