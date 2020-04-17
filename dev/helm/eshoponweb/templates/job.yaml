@@ -10,8 +10,7 @@ spec:
       containers:
       - name: test-migration
         image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
-        command: 
-          - "echo"
-          - "test migrations"
+        command: ["/bin/sh","-c"]
+        args: ["psql", "--help"]
       restartPolicy: Never
   backoffLimit: 2
