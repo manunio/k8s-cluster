@@ -4,6 +4,7 @@ metadata:
   generateName: {{ template "eshoponweb.name" . }}-schema-migration
   annotations:
     argocd.argoproj.io/hook: PreSync
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
     spec:
@@ -11,7 +12,7 @@ spec:
       - name: test-migration
         image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
         command: 
-          - "echo"
-          - "test migrations"
+          - "psql"
+          - "--help"
       restartPolicy: Never
   backoffLimit: 2
