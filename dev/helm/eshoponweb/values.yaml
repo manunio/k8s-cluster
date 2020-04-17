@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 1
 clusterName: eshoponweb-k8s
 pathBase: /webmvc
 image:
