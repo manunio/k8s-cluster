@@ -1,0 +1,4 @@
+erver:
+  affinity: ""
+  ha:
+    enabled: true

@@ -1,0 +1,5 @@
+env:
+    email: max.manu.nair@gmial.com
+    password: manunair@admin
+service:
+        type: NodePort
