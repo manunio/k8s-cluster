@@ -7,7 +7,11 @@ metadata:
 spec:
   project: default
   source:
+<<<<<<< HEAD
     repoURL: https://github.com/manunio/k8s-cluster.git
+=======
+    repoURL: https://gitlab.com/max1832/k8s-cluster.git
+>>>>>>> c2d06a38c35144db7668e189cadd323b48d23228
     targetRevision: HEAD
     path: dev/helm/eshoponweb
   destination:
@@ -25,7 +29,11 @@ metadata:
 spec:
   project: default
   source:
+<<<<<<< HEAD
     repoURL: https://github.com/manunio/k8s-cluster.git
+=======
+    repoURL: https://gitlab.com/max1832/k8s-cluster.git
+>>>>>>> c2d06a38c35144db7668e189cadd323b48d23228
     targetRevision: HEAD
     path: prod
   destination:
