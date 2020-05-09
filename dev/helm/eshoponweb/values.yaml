@@ -3,45 +3,30 @@ clusterName: eshoponweb-k8s
 pathBase: /webmvc
 image:
   repository: max1832/eshoponweb
-  tag: 909a9f23bda587d5e07dc0d2c7d33663e27cb862
+  tag: latest
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: true
-  annotations: 
-    {
-      "kubernetes.io/ingress.class": "nginx",
-      "ingress.kubernetes.io/rewrite-target": "/",
-      "nginx.ingress.kubernetes.io/add-base-url" : "true"
-    }
-  hosts: 
-    - 
+  annotations: {"kubernetes.io/ingress.class": "nginx", "ingress.kubernetes.io/rewrite-target": "/",
+    "nginx.ingress.kubernetes.io/add-base-url": "true"}
+  hosts:
+  -
   tls: []
-
-registry:                # Uncomment "registry" to specify registry secret
-  secretName: regcred           # secretName is the name of the secret inside k8s
+registry: # Uncomment "registry" to specify registry secret
+  secretName: regcred # secretName is the name of the secret inside k8s
   server: registry.gitlab.com
-
-
 svc:
   mvc: eshoponweb-svc
-
-k8s:                      # inf.k8s defines Kubernetes cluster global config
-  dns:  ""                # k8s external  DNS. This value or ip value MUST BE PROVIDED
-  local: false  
+k8s: # inf.k8s defines Kubernetes cluster global config
+  dns: "" # k8s external  DNS. This value or ip value MUST BE PROVIDED
+  local: false
 resources: {}
-
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 # env defines the environment variables that will be declared in the pod
 env:
   urls:
@@ -67,11 +52,11 @@ env:
   #     key: internalurls__identity__hc      
   #   - name: SignalrHubUrl
   #     key: urls__apigwws
-      # values define environment variables with a fixed value (no configmap involved) (name is name of var, and value is its value)
+  # values define environment variables with a fixed value (no configmap involved) (name is name of var, and value is its value)
   values:
-    - name: ASPNETCORE_ENVIRONMENT
-      value: Development
-    - name: OrchestratorType
-      value: 'K8S'
-    - name: IsClusterEnv
-      value: 'True'
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Development
+  - name: OrchestratorType
+    value: 'K8S'
+  - name: IsClusterEnv
+    value: 'True'
